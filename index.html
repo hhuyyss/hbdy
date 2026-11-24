@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>happy birthday, ayaan — scrapbook book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and scrapbook book design tokens */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --linen: #f6f1ea;
+      --paper: #fffdf9;
+      --page-edge: #ede4d8;
+      --blush: #d98a78;
+      --blush-deep: #b86a58;
+      --sage: #6b7f6e;
+      --espresso: #2c2420;
+      --ink-soft: #6b5f58;
+      --rule: #e3dad0;
+      --spine-shadow: rgba(44, 36, 32, 0.14);
+      --card-shadow: 0 16px 38px rgba(44, 36, 32, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--espresso);
+      background-color: var(--linen);
+      background-image:
+        radial-gradient(circle at 12% 14%, rgba(217, 138, 120, 0.16) 0%, transparent 42%),
+        radial-gradient(circle at 88% 82%, rgba(107, 127, 110, 0.14) 0%, transparent 44%),
+        linear-gradient(to right, rgba(44, 36, 32, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(44, 36, 32, 0.025) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 34px 34px, 34px 34px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-transform: lowercase;
+      transition: background-color 0.35s ease, color 0.3s ease;
+    }
+
+    body.candlelight {
+      color: #f6ece2;
+      background-color: #181311;
+      background-image:
+        radial-gradient(circle at 28% 24%, rgba(217, 138, 120, 0.15) 0%, transparent 46%),
+        radial-gradient(circle at 76% 72%, rgba(107, 127, 110, 0.12) 0%, transparent 48%);
+      background-size: 100% 100%, 100% 100%;
+    }
+
+    body.candlelight .top-bar,
+    body.candlelight .book-shell,
+    body.candlelight .page-sheet,
+    body.candlelight .code-drawer,
+    body.candlelight .btn-secondary,
+    body.candlelight .sticker-item,
+    body.candlelight .balloon-btn,
+    body.candlelight .note-box {
+      background: #221c19;
+      border-color: #3a302b;
+      color: #f6ece2;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+    }
+
+    body.candlelight .muted,
+    body.candlelight .audio-sub,
+    body.candlelight .audio-meta,
+    body.candlelight .letter-sign,
+    body.candlelight .page-counter,
+    body.candlelight .footer-note {
+      color: #baa99f;
+    }
+
+    body.candlelight .status-msg,
+    body.candlelight .balloon-msg,
+    body.candlelight .sticker-msg {
+      color: #eba494;
+    }
+
+    /* Party banner */
+    .party-banner {
+      display: none;
+      max-width: 980px;
+      margin: 14px auto 0;
+      padding: 11px 18px;
+      border-radius: 16px;
+      background: #fbeae6;
+      border: 1px solid var(--blush);
+      color: var(--blush-deep);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    body.party-mode .party-banner {
+      display: block;
+    }
+
+    body.candlelight .party-banner {
+      background: #36221d;
+      color: #f3b5a7;
+    }
+
+    /* Header bar */
+    .top-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 18px 0;
+    }
+
+    .top-bar {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 24px;
+      padding: 18px 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.11em;
+      color: var(--sage);
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .book-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 4.6vw, 2.9rem);
+      font-weight: 600;
+      line-height: 1.04;
+    }
+
+    .book-title em {
+      font-style: italic;
+      color: var(--blush-deep);
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-mini,
+    .page-tab {
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, opacity 0.16s ease;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 9px 15px;
+    }
+
+    .btn-primary {
+      background: var(--blush);
+      border: 1px solid var(--blush);
+      color: #fffdfb;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--blush-deep);
+      border-color: var(--blush-deep);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      color: var(--espresso);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--blush);
+    }
+
+    .btn-primary:disabled,
+    .btn-secondary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary.is-on {
+      background: #fbeae6;
+      border-color: var(--blush);
+      color: var(--blush-deep);
+    }
+
+    body.candlelight .btn-secondary.is-on {
+      background: #36221d;
+      color: #eba494;
+    }
+
+    .btn-mini {
+      padding: 6px 11px;
+      font-size: 0.75rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      color: var(--espresso);
+    }
+
+    body.candlelight .btn-mini {
+      background: #221c19;
+      border-color: #3a302b;
+      color: #f6ece2;
+    }
+
+    .btn-mini:hover {
+      border-color: var(--blush);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #b8afa6;
+    }
+
+    .btn-secondary.is-on .pulse-dot {
+      background: var(--blush-deep);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+    }
+
+    /* Book navigation tabs and controls */
+    .book-stage-wrap {
+      max-width: 980px;
+      margin: 20px auto 0;
+      padding: 0 18px 44px;
+    }
+
+    .book-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .page-tab {
+      padding: 7px 13px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+    }
+
+    body.candlelight .page-tab {
+      background: #221c19;
+      border-color: #3a302b;
+      color: #baa99f;
+    }
+
+    .page-tab.is-active {
+      background: var(--blush);
+      border-color: var(--blush);
+      color: #fffdfb;
+      font-weight: 600;
+    }
+
+    .book-arrow-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-counter {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+    }
+
+    body.candlelight .page-counter {
+      background: #221c19;
+      border-color: #3a302b;
+      color: #baa99f;
+    }
+
+    /* Turnable scrapbook book container */
+    .book-shell {
+      position: relative;
+      perspective: 2000px;
+      background: linear-gradient(90deg, #e7ddd0 0%, #f5efe6 5%, #fffdf9 10%, #fffdf9 90%, #f5efe6 95%, #e4d8c8 100%);
+      border: 1px solid var(--rule);
+      border-radius: 26px;
+      padding: 28px 26px 34px;
+      box-shadow:
+        0 20px 44px var(--spine-shadow),
+        inset 18px 0 24px -18px rgba(44, 36, 32, 0.14),
+        inset -18px 0 24px -18px rgba(44, 36, 32, 0.12);
+      overflow: hidden;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    /* Decorative book binding stitch line on left edge */
+    .book-shell::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      bottom: 16px;
+      left: 14px;
+      width: 2px;
+      border-left: 2px dashed rgba(107, 95, 88, 0.28);
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    /* Direct touch/drag/click outer right and left page edge zones */
+    .edge-turn-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 44px;
+      z-index: 12;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, opacity 0.2s ease;
+      touch-action: none;
+    }
+
+    .edge-turn-zone:active {
+      cursor: grabbing;
+    }
+
+    .edge-turn-zone.is-disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .edge-right {
+      right: 0;
+      border-top-right-radius: 26px;
+      border-bottom-right-radius: 26px;
+      background: linear-gradient(to left, rgba(217, 138, 120, 0.16), transparent);
+    }
+
+    .edge-left {
+      left: 16px;
+      background: linear-gradient(to right, rgba(217, 138, 120, 0.14), transparent);
+    }
+
+    .edge-curl-cue {
+      writing-mode: vertical-rl;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    /* Real-time dynamic curl crease shadow during finger drag */
+    .page-crease-shadow {
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      width: 34px;
+      pointer-events: none;
+      z-index: 9;
+      opacity: 0;
+      background: radial-gradient(ellipse at center, rgba(44, 36, 32, 0.26) 0%, rgba(44, 36, 32, 0) 75%);
+      filter: blur(5px);
+      transition: opacity 0.12s ease;
+    }
+
+    /* Individual scrapbook pages with real-time finger-drag bend and flip */
+    .book-page {
+      display: none;
+      transform-origin: left center;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+    }
+
+    .book-page.is-current {
+      display: block;
+      animation: pageTurnIn 0.36s cubic-bezier(0.22, 0.85, 0.36, 1) forwards;
+    }
+
+    .book-page.is-dragging {
+      display: block;
+      animation: none;
+      transition: none;
+    }
+
+    .book-page.turning-next {
+      display: block;
+      animation: pageTurnNext 0.34s ease-in forwards;
+    }
+
+    .book-page.turning-prev {
+      display: block;
+      animation: pageTurnPrev 0.34s ease-in forwards;
+    }
+
+    @keyframes pageTurnIn {
+      0% {
+        opacity: 0.25;
+        transform: rotateY(-12deg) skewY(-1.2deg) scale(0.99);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(0deg) skewY(0deg) scale(1);
+      }
+    }
+
+    @keyframes pageTurnNext {
+      0% {
+        opacity: 1;
+        transform: rotateY(0deg) skewY(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: rotateY(-28deg) skewY(-2.4deg);
+      }
+    }
+
+    @keyframes pageTurnPrev {
+      0% {
+        opacity: 1;
+        transform: rotateY(0deg) skewY(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: rotateY(24deg) skewY(2deg);
+      }
+    }
+
+    .page-sheet {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      padding: 24px 22px;
+      box-shadow: 0 8px 22px rgba(44, 36, 32, 0.04);
+    }
+
+    .page-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    body.candlelight .page-header-row {
+      border-bottom-color: #3a302b;
+    }
+
+    .page-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1.12;
+    }
+
+    .page-num-tag {
+      font-size: 0.74rem;
+      letter-spacing: 0.09em;
+      color: var(--sage);
+      font-weight: 600;
+    }
+
+    .muted {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Cute girl illustration box */
+    .girl-box {
+      background: linear-gradient(160deg, #fdf2f0 0%, #f5efe7 100%);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    body.candlelight .girl-box {
+      background: #2c2420;
+      border-color: #3c312c;
+    }
+
+    .girl-caption {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      color: var(--ink-soft);
+    }
+
+    body.candlelight .girl-caption {
+      color: #c7b9ae;
+    }
+
+    /* Interactive 5-candle cake */
+    .cake-panel {
+      background: #fbf8f4;
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    body.candlelight .cake-panel {
+      background: #29221e;
+      border-color: #3c312c;
+    }
+
+    .cake-wrap {
+      position: relative;
+      width: 228px;
+      height: 170px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.18s ease;
+    }
+
+    .cake-wrap:hover {
+      transform: scale(1.02);
+    }
+
+    .cake-plate {
+      position: absolute;
+      bottom: 6px;
+      width: 214px;
+      height: 12px;
+      border-radius: 999px;
+      background: #efe7dc;
+      border: 1px solid var(--rule);
+    }
+
+    .cake-tier {
+      position: relative;
+      width: 178px;
+      height: 84px;
+      bottom: 15px;
+      border-radius: 16px 16px 12px 12px;
+      background: linear-gradient(180deg, #f3d2c4 0%, var(--blush) 100%);
+      border: 1px solid #c57a68;
+    }
+
+    .cake-frosting {
+      position: absolute;
+      top: 0;
+      left: -3px;
+      right: -3px;
+      height: 29px;
+      background: #fffdfb;
+      border-radius: 16px 16px 20px 20px;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 8px;
+    }
+
+    .frost-drip {
+      width: 14px;
+      height: 35px;
+      background: #fffdfb;
+      border-radius: 0 0 10px 10px;
+      transform: translateY(4px);
+    }
+
+    .frost-drip:nth-child(even) {
+      height: 26px;
+    }
+
+    .candle-row {
+      position: absolute;
+      top: -43px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      z-index: 3;
+    }
+
+    .candle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+
+    .flame {
+      width: 11px;
+      height: 16px;
+      border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+      background: radial-gradient(circle at 50% 65%, #fff9ce 15%, #f2be54 58%, #d9774a 100%);
+      box-shadow: 0 0 12px rgba(242, 190, 84, 0.72);
+      margin-bottom: 3px;
+      transform-origin: bottom center;
+      animation: flicker 0.9s ease-in-out infinite alternate;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .candle.is-out .flame {
+      opacity: 0;
+      transform: scale(0.2);
+      animation: none;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2.5deg); }
+      100% { transform: scale(1.06, 0.96) rotate(2.5deg); }
+    }
+
+    .wick {
+      width: 2px;
+      height: 6px;
+      background: var(--espresso);
+    }
+
+    .wax {
+      width: 10px;
+      height: 31px;
+      border-radius: 4px;
+      border: 1px solid rgba(44, 36, 32, 0.16);
+      background: repeating-linear-gradient(
+        -45deg,
+        #fffdfb,
+        #fffdfb 5px,
+        var(--blush) 5px,
+        var(--blush) 10px
+      );
+    }
+
+    .cake-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .status-msg {
+      min-height: 24px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.4;
+      color: var(--blush-deep);
+    }
+
+    /* Sticker tray */
+    .sticker-tray {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .sticker-item {
+      font-family: inherit;
+      background: #f6f1eb;
+      border: 1px solid var(--rule);
+      border-radius: 16px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--espresso);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+    }
+
+    body.candlelight .sticker-item {
+      background: #2c2420;
+      border-color: #3c312c;
+    }
+
+    .sticker-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--blush);
+    }
+
+    .sticker-item.is-on {
+      background: #fbeae6;
+      border-color: var(--blush);
+      color: var(--blush-deep);
+    }
+
+    body.candlelight .sticker-item.is-on {
+      background: #36221d;
+      color: #eba494;
+    }
+
+    .sticker-msg {
+      grid-column: 1 / -1;
+      min-height: 22px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--blush-deep);
+      padding-top: 4px;
+    }
+
+    /* Envelope and letter from nandu */
+    .envelope-box {
+      background: #fbf8f4;
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    body.candlelight .envelope-box {
+      background: #29221e;
+      border-color: #3c312c;
+    }
+
+    .envelope-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .envelope-badge {
+      width: 50px;
+      height: 38px;
+      border-radius: 10px;
+      background: #f2ebe2;
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blush-deep);
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    body.candlelight .envelope-badge {
+      background: #332a25;
+      border-color: #463b35;
+      color: #eba494;
+    }
+
+    .letter-panel {
+      display: none;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fbf8f4;
+      border: 1px solid var(--rule);
+      flex-direction: column;
+      gap: 12px;
+      animation: revealLetter 0.28s ease;
+    }
+
+    .letter-panel.is-open {
+      display: flex;
+    }
+
+    body.candlelight .letter-panel {
+      background: #29221e;
+      border-color: #3c312c;
+    }
+
+    @keyframes revealLetter {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .letter-body {
+      font-size: 1rem;
+      line-height: 1.82;
+      white-space: pre-line;
+      text-transform: none;
+    }
+
+    .letter-sign {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--ink-soft);
+      text-align: right;
+    }
+
+    /* Balloons, notes, and in-page audio player */
+    .balloon-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .balloon-btn {
+      font-family: inherit;
+      background: #f6f1eb;
+      border: 1px solid var(--rule);
+      border-radius: 16px;
+      padding: 10px 14px;
+      color: var(--espresso);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.16s ease, opacity 0.25s ease, border-color 0.16s ease;
+    }
+
+    body.candlelight .balloon-btn {
+      background: #2c2420;
+      border-color: #3c312c;
+    }
+
+    .balloon-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--blush);
+    }
+
+    .balloon-btn.is-popped {
+      opacity: 0.52;
+      transform: scale(0.96);
+    }
+
+    .balloon-msg {
+      min-height: 24px;
+      margin-top: 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.16rem;
+      color: var(--blush-deep);
+    }
+
+    .note-box {
+      margin-top: 14px;
+      background: #fbf8f4;
+      color: var(--espresso);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--sage);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .note-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.09em;
+      color: var(--sage);
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .note-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.2rem;
+      line-height: 1.42;
+    }
+
+    .audio-box {
+      background: #fbf8f4;
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    body.candlelight .audio-box {
+      background: #29221e;
+      border-color: #3c312c;
+    }
+
+    .audio-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .audio-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .audio-sub {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--linen);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    body.candlelight .progress-track {
+      background: #1e1815;
+      border-color: #3c312c;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blush), var(--sage));
+      transition: width 0.15s linear;
+    }
+
+    .audio-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+    }
+
+    /* Copyable index.html source drawer */
+    .code-drawer {
+      display: none;
+      margin-top: 18px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .code-drawer.is-open {
+      display: block;
+    }
+
+    .code-drawer-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .code-textarea {
+      width: 100%;
+      height: 240px;
+      border-radius: 14px;
+      border: 1px solid var(--rule);
+      background: #f6f1eb;
+      color: var(--espresso);
+      padding: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      resize: vertical;
+      text-transform: none;
+    }
+
+    body.candlelight .code-textarea {
+      background: #181311;
+      color: #f6ece2;
+      border-color: #3a302b;
+    }
+
+    /* Floating stars, hearts, and confetti */
+    .fx-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 40;
+      overflow: hidden;
+    }
+
+    .confetti-bit {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      animation: confettiOut 1s cubic-bezier(0.18, 0.82, 0.35, 1) forwards;
+    }
+
+    @keyframes confettiOut {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.75) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(210deg);
+      }
+    }
+
+    .float-glyph {
+      position: absolute;
+      bottom: -24px;
+      font-size: 1.15rem;
+      animation: floatUp 2.6s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.8);
+      }
+      20% {
+        opacity: 0.95;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-78vh) scale(1.15);
+      }
+    }
+
+    .footer-note {
+      max-width: 980px;
+      margin: 0 auto 30px;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
+  </style>
+</head>
+<body>
+  <!-- Celebratory party mode banner -->
+  <div class="party-banner" id="partyBanner" role="status" aria-live="polite">
+    party hat mode is active for ayaan! celebrating with confetti and good vibes.
+  </div>
+
+  <!-- Masthead -->
+  <div class="top-wrap">
+    <header class="top-bar">
+      <div>
+        <span class="kicker">turnable scrapbook book for ayaan</span>
+        <h1 class="book-title">happy birthday, <em>ayaan</em></h1>
+      </div>
+
+      <div class="top-actions">
+        <button type="button" class="btn-secondary" id="vibeToggle" aria-pressed="false">
+          <span>candlelight glow</span>
+        </button>
+        <button type="button" class="btn-secondary" id="toggleCodeBtn" aria-expanded="false">
+          <span>index.html code</span>
+        </button>
+        <button type="button" class="btn-secondary" id="headerPlayBtn" aria-pressed="false">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span id="headerPlayLabel">birds of a feather</span>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <!-- Turnable scrapbook book stage -->
+  <main class="book-stage-wrap">
+    <div class="book-nav-bar" aria-label="Book page status and tabs">
+      <div class="page-tabs" role="tablist" aria-label="Scrapbook pages">
+        <button type="button" class="page-tab is-active" role="tab" aria-selected="true" data-page="0">p.1 cake and girl</button>
+        <button type="button" class="page-tab" role="tab" aria-selected="false" data-page="1">p.2 stickers and song</button>
+        <button type="button" class="page-tab" role="tab" aria-selected="false" data-page="2">p.3 letter from nandu</button>
+        <button type="button" class="page-tab" role="tab" aria-selected="false" data-page="3">p.4 balloons and notes</button>
+      </div>
+
+      <div class="book-arrow-group">
+        <span class="page-counter" id="pageCounter">page 1 of 4 • drag or swipe page</span>
+      </div>
+    </div>
+
+    <div class="book-shell" id="bookShell">
+      <div class="page-crease-shadow" id="creaseShadow" aria-hidden="true"></div>
+
+      <!-- Page 1: Cute girl holding a cake + interactive 5-candle cake -->
+      <section class="book-page is-current" data-page="0" aria-label="Page 1: Cute girl and interactive 5-candle cake">
+        <div class="page-sheet">
+          <div class="page-header-row">
+            <h2 class="page-heading">cake and sweet corner</h2>
+            <span class="page-num-tag">page 01 / 04</span>
+          </div>
+
+          <div class="two-col-grid">
+            <div class="girl-box">
+              <svg width="176" height="194" viewBox="0 0 184 202" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cute kawaii girl with neat hair, small tucked ears, soft smile, rosy cheeks, and a frosted cake with lit candles">
+                <circle cx="92" cy="102" r="74" fill="#fbeae6"/>
+                <circle cx="92" cy="102" r="64" fill="#fffaf7"/>
+
+                <!-- Neat low pigtails -->
+                <path d="M56 64C45 68 42 81 48 91C53 86 56 78 58 70Z" fill="#5b3d2e" stroke="#2c2420" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M128 64C139 68 142 81 136 91C131 86 128 78 126 70Z" fill="#5b3d2e" stroke="#2c2420" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="56" cy="65" r="3.6" fill="#d98a78" stroke="#2c2420" stroke-width="1.5"/>
+                <circle cx="128" cy="65" r="3.6" fill="#d98a78" stroke="#2c2420" stroke-width="1.5"/>
+
+                <!-- Neat bob hair -->
+                <path d="M53 68C53 38 70 25 92 25C114 25 131 38 131 68V94H53V68Z" fill="#5b3d2e" stroke="#2c2420" stroke-width="2.1" stroke-linejoin="round"/>
+
+                <!-- Small tucked ears -->
+                <ellipse cx="56" cy="69" rx="3.8" ry="6" fill="#f7e3d7" stroke="#2c2420" stroke-width="1.9"/>
+                <ellipse cx="128" cy="69" rx="3.8" ry="6" fill="#f7e3d7" stroke="#2c2420" stroke-width="1.9"/>
+
+                <!-- Face -->
+                <rect x="59" y="42" width="66" height="53" rx="26" fill="#f7e3d7" stroke="#2c2420" stroke-width="2.1"/>
+
+                <!-- Soft bangs -->
+                <path d="M60 56C68 45 80 45 92 53C104 45 116 45 124 56C119 41 107 32 92 32C77 32 65 41 60 56Z" fill="#5b3d2e" stroke="#2c2420" stroke-width="2"/>
+
+                <!-- Kawaii eyes, rosy cheeks, and soft smile -->
+                <circle cx="75" cy="68" r="5" fill="#2c2420"/>
+                <circle cx="109" cy="68" r="5" fill="#2c2420"/>
+                <circle cx="73.2" cy="66" r="1.8" fill="#fffdfb"/>
+                <circle cx="107.2" cy="66" r="1.8" fill="#fffdfb"/>
+                <ellipse cx="66" cy="76" rx="5.6" ry="3" fill="#e29592" opacity="0.78"/>
+                <ellipse cx="118" cy="76" rx="5.6" ry="3" fill="#e29592" opacity="0.78"/>
+                <path d="M84 79C87.5 82.8 96.5 82.8 100 79" stroke="#2c2420" stroke-width="2" stroke-linecap="round"/>
+
+                <!-- Dress -->
+                <path d="M57 101C57 96 71 94 92 94C113 94 127 96 127 101L135 178H49L57 101Z" fill="#dce6d9" stroke="#2c2420" stroke-width="2.1" stroke-linejoin="round"/>
+                <path d="M75 95L92 109L109 95" fill="#fffdfb" stroke="#2c2420" stroke-width="1.9" stroke-linejoin="round"/>
+
+                <!-- Frosted cake held in hands -->
+                <rect x="46" y="120" width="92" height="42" rx="12" fill="#fffdfb" stroke="#2c2420" stroke-width="2.1"/>
+                <path d="M48 136C57 144 66 133 75 140C84 147 92 133 101 140C110 147 119 134 136 136" stroke="#d98a78" stroke-width="3.6" stroke-linecap="round"/>
+                <circle cx="64" cy="151" r="2.4" fill="#e8be6a"/>
+                <circle cx="92" cy="151" r="2.4" fill="#6b7f6e"/>
+                <circle cx="120" cy="151" r="2.4" fill="#c9969b"/>
+
+                <!-- Lit candles -->
+                <rect x="66" y="106" width="5.5" height="14" rx="2" fill="#b8ced9" stroke="#2c2420" stroke-width="1.7"/>
+                <rect x="89" y="102" width="6" height="18" rx="2" fill="#f2d288" stroke="#2c2420" stroke-width="1.7"/>
+                <rect x="112" y="106" width="5.5" height="14" rx="2" fill="#d98a78" stroke="#2c2420" stroke-width="1.7"/>
+                <ellipse cx="68.8" cy="101" rx="3.1" ry="4.4" fill="#ffbe4d"/>
+                <ellipse cx="92" cy="97" rx="3.5" ry="4.9" fill="#f59e3d"/>
+                <ellipse cx="114.8" cy="101" rx="3.1" ry="4.4" fill="#ffbe4d"/>
+
+                <!-- Hands -->
+                <circle cx="46" cy="142" r="8.2" fill="#f7e3d7" stroke="#2c2420" stroke-width="2"/>
+                <circle cx="138" cy="142" r="8.2" fill="#f7e3d7" stroke="#2c2420" stroke-width="2"/>
+              </svg>
+              <span class="girl-caption">carrying a frosted birthday cake with lit candles</span>
+            </div>
+
+            <div class="cake-panel">
+              <span class="kicker">5-candle birthday cake</span>
+              <div class="cake-wrap" id="cakeWrap" title="Tap individual candles or the cake to blow out or relight">
+                <div class="cake-tier">
+                  <div class="candle-row" id="candleRow">
+                    <div class="candle" data-index="0" title="Toggle candle 1"><span class="flame"></span><span class="wick"></span><span class="wax"></span></div>
+                    <div class="candle" data-index="1" title="Toggle candle 2"><span class="flame"></span><span class="wick"></span><span class="wax"></span></div>
+                    <div class="candle" data-index="2" title="Toggle candle 3"><span class="flame"></span><span class="wick"></span><span class="wax"></span></div>
+                    <div class="candle" data-index="3" title="Toggle candle 4"><span class="flame"></span><span class="wick"></span><span class="wax"></span></div>
+                    <div class="candle" data-index="4" title="Toggle candle 5"><span class="flame"></span><span class="wick"></span><span class="wax"></span></div>
+                  </div>
+                  <div class="cake-frosting">
+                    <span class="frost-drip"></span>
+                    <span class="frost-drip"></span>
+                    <span class="frost-drip"></span>
+                    <span class="frost-drip"></span>
+                    <span class="frost-drip"></span>
+                  </div>
+                </div>
+                <div class="cake-plate"></div>
+              </div>
+
+              <div class="cake-actions">
+                <button type="button" class="btn-primary" id="toggleCandlesBtn">blow out candles</button>
+                <button type="button" class="btn-secondary" id="relightCandlesBtn">relight candles</button>
+              </div>
+
+              <p class="status-msg" id="wishStatus" aria-live="polite">candles are lit and ready for your birthday wish.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page 2: Interactive stickers + in-page audio player -->
+      <section class="book-page" data-page="1" aria-label="Page 2: Interactive stickers and song player">
+        <div class="page-sheet">
+          <div class="page-header-row">
+            <h2 class="page-heading">stickers and birds of a feather</h2>
+            <span class="page-num-tag">page 02 / 04</span>
+          </div>
+
+          <div class="two-col-grid">
+            <div>
+              <span class="kicker">interactive sticker tray</span>
+              <p class="muted">tap any sticker to trigger a real action on the scrapbook.</p>
+
+              <div class="sticker-tray">
+                <button type="button" class="sticker-item" id="stickerSparkles">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#d98a78"/>
+                    <circle cx="5" cy="5" r="2" fill="#e8be6a"/>
+                    <circle cx="19" cy="19" r="2" fill="#6b7f6e"/>
+                  </svg>
+                  <span>sparkles</span>
+                </button>
+
+                <button type="button" class="sticker-item" id="stickerBalloons">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <ellipse cx="12" cy="9.5" rx="6.5" ry="7.5" fill="#d98a78" stroke="#2c2420" stroke-width="1.6"/>
+                    <polygon points="10.2,17 13.8,17 12,19.5" fill="#d98a78" stroke="#2c2420" stroke-width="1.4"/>
+                    <path d="M12 19.5Q10 21.5 12.5 23" stroke="#6b5f58" stroke-width="1.4"/>
+                  </svg>
+                  <span>balloons</span>
+                </button>
+
+                <button type="button" class="sticker-item" id="stickerHat" aria-pressed="false">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <polygon points="12,3 4,20 20,20" fill="#6b7f6e" stroke="#2c2420" stroke-width="1.6" stroke-linejoin="round"/>
+                    <circle cx="12" cy="3" r="2.2" fill="#e8be6a" stroke="#2c2420" stroke-width="1.4"/>
+                    <line x1="7.5" y1="12.5" x2="16.5" y2="12.5" stroke="#fffdfb" stroke-width="1.8"/>
+                  </svg>
+                  <span>party hat</span>
+                </button>
+
+                <button type="button" class="sticker-item" id="stickerCd">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9.5" fill="#e6dfd6" stroke="#2c2420" stroke-width="1.6"/>
+                    <path d="M12 2.5A9.5 9.5 0 0 1 20.5 8L12 12Z" fill="#d98a78" opacity="0.65"/>
+                    <circle cx="12" cy="12" r="3" fill="#fffdfb" stroke="#2c2420" stroke-width="1.6"/>
+                  </svg>
+                  <span>music cd</span>
+                </button>
+
+                <button type="button" class="sticker-item" id="stickerCake">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="4.5" y="11" width="15" height="9" rx="3" fill="#f3d2c4" stroke="#2c2420" stroke-width="1.6"/>
+                    <path d="M5 14C7.5 16 10 12 12 14C14 16 16.5 12 19 14" stroke="#fffdfb" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="6.5" x2="12" y2="11" stroke="#6b7f6e" stroke-width="2"/>
+                    <ellipse cx="12" cy="4.5" rx="1.8" ry="2.6" fill="#e8be6a"/>
+                  </svg>
+                  <span>candle cake</span>
+                </button>
+
+                <p class="sticker-msg" id="stickerMsg" aria-live="polite">tap any sticker to see its effect.</p>
+              </div>
+            </div>
+
+            <div class="audio-box" aria-label="In-page audio player for birds of a feather">
+              <span class="kicker">in-page song player</span>
+              <div class="audio-top">
+                <div>
+                  <div class="audio-title" id="audioTitle">birds of a feather</div>
+                  <div class="audio-sub" id="audioSub">built-in music-box fallback active; upload a local audio file anytime</div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <button type="button" class="btn-mini" id="playPauseBtn">play</button>
+                  <button type="button" class="btn-mini" id="muteBtn" aria-pressed="false">mute</button>
+                </div>
+              </div>
+
+              <div class="progress-track" id="progressTrack" title="Click to seek">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+
+              <div class="audio-meta">
+                <span id="timeReadout">0:00 / 0:48</span>
+                <button type="button" class="btn-mini" id="uploadAudioBtn">upload audio file</button>
+                <input type="file" id="audioFileInput" accept="audio/*,.mp3,.m4a,.wav,.ogg" style="display:none;" />
+              </div>
+
+              <audio id="audioEl" preload="metadata"></audio>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page 3: Envelope and letter signed '- nandu.' -->
+      <section class="book-page" data-page="2" aria-label="Page 3: Envelope and letter from nandu">
+        <div class="page-sheet">
+          <div class="page-header-row">
+            <h2 class="page-heading">envelope and birthday letter</h2>
+            <span class="page-num-tag">page 03 / 04</span>
+          </div>
+
+          <div class="envelope-box" id="envelopeToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="letterPanel">
+            <div class="envelope-left">
+              <div class="envelope-badge" aria-hidden="true">✉</div>
+              <div>
+                <span class="kicker" style="margin-bottom:2px;">folded letter</span>
+                <div style="font-weight:600;font-size:0.96rem;">tap to open or close the letter</div>
+                <p class="muted">written for ayaan from nandu.</p>
+              </div>
+            </div>
+            <span class="btn-secondary" id="openLetterLabel">open letter</span>
+          </div>
+
+          <div class="letter-panel" id="letterPanel">
+            <p class="letter-body">i wish you ocean of happiness, river of laughter, and a sky full of love. wherever your journey takes you, may the stars keep watch over your soul. happy birthday.</p>
+            <p class="letter-sign">- nandu.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page 4: Balloons and cycling birthday note cards -->
+      <section class="book-page" data-page="3" aria-label="Page 4: Balloons and birthday note cards">
+        <div class="page-sheet">
+          <div class="page-header-row">
+            <h2 class="page-heading">balloons and keepsake notes</h2>
+            <span class="page-num-tag">page 04 / 04</span>
+          </div>
+
+          <p class="muted">pop a balloon for a wish or cycle through the birthday note cards below.</p>
+
+          <div class="balloon-row">
+            <button type="button" class="balloon-btn" data-balloon="may your days stay bright, warm, and full of little wins.">
+              <span>🎈</span>
+              <span>balloon 1</span>
+            </button>
+            <button type="button" class="balloon-btn" data-balloon="wishing you endless laughter and peaceful evenings ahead.">
+              <span>🎈</span>
+              <span>balloon 2</span>
+            </button>
+            <button type="button" class="balloon-btn" data-balloon="here is to a year filled with everything you have been hoping for.">
+              <span>🎈</span>
+              <span>balloon 3</span>
+            </button>
+          </div>
+
+          <p class="balloon-msg" id="balloonMsg" aria-live="polite"></p>
+
+          <div class="note-box">
+            <span class="note-label" id="noteLabel">birthday note 1 of 4</span>
+            <p class="note-text" id="noteText">wishing you calm mornings, big laughs, and days that feel effortless.</p>
+          </div>
+
+          <div style="margin-top:12px;">
+            <button type="button" class="btn-secondary" id="cycleNoteBtn">next birthday card</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Direct outer left/right page edges for finger drag, swipe, or click without buttons -->
+      <div class="edge-turn-zone edge-left is-disabled" id="edgeLeft" role="button" tabindex="0" aria-label="Drag or tap left page edge to turn back">
+        <span class="edge-curl-cue">drag / tap</span>
+      </div>
+      <div class="edge-turn-zone edge-right" id="edgeRight" role="button" tabindex="0" aria-label="Drag or tap right page edge to turn forward">
+        <span class="edge-curl-cue">drag / tap</span>
+      </div>
+    </div>
+
+    <!-- Collapsible full index.html source drawer -->
+    <section class="code-drawer" id="codeDrawer" aria-label="Standalone index.html source code">
+      <div class="code-drawer-head">
+        <div>
+          <span class="kicker" style="margin-bottom:2px;">standalone single-file code</span>
+          <h2 class="page-heading" style="font-size:1.45rem;">save as index.html</h2>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="muted" id="copyStatus"></span>
+          <button type="button" class="btn-primary" id="copyCodeBtn">copy index.html</button>
+        </div>
+      </div>
+      <textarea class="code-textarea" id="sourceCodeArea" readonly aria-label="Full standalone HTML source code"></textarea>
+    </section>
+  </main>
+
+  <div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+
+  <footer class="footer-note">made for ayaan • drag or swipe across the page or outer edges with your finger, or use left/right arrow keys</footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const fxLayer = document.getElementById("fxLayer");
+      const vibeToggle = document.getElementById("vibeToggle");
+      const toggleCodeBtn = document.getElementById("toggleCodeBtn");
+      const codeDrawer = document.getElementById("codeDrawer");
+      const sourceCodeArea = document.getElementById("sourceCodeArea");
+      const copyCodeBtn = document.getElementById("copyCodeBtn");
+      const copyStatus = document.getElementById("copyStatus");
+      const headerPlayBtn = document.getElementById("headerPlayBtn");
+      const headerPlayLabel = document.getElementById("headerPlayLabel");
+
+      const bookShell = document.getElementById("bookShell");
+      const creaseShadow = document.getElementById("creaseShadow");
+      const pages = Array.from(document.querySelectorAll(".book-page"));
+      const pageTabs = Array.from(document.querySelectorAll(".page-tab"));
+      const edgeLeft = document.getElementById("edgeLeft");
+      const edgeRight = document.getElementById("edgeRight");
+      const pageCounter = document.getElementById("pageCounter");
+
+      const candles = Array.from(document.querySelectorAll(".candle"));
+      // Turnable book state, real-time finger/mouse drag bend, and page-flip animation
+      let currentPage = 0;
+      let isTurning = false;
+
+      function syncBookNav() {
+        pageCounter.textContent = `page ${currentPage + 1} of ${pages.length} • drag or swipe page`;
+        edgeLeft.classList.toggle("is-disabled", currentPage === 0);
+        edgeRight.classList.toggle("is-disabled", currentPage === pages.length - 1);
+
+        pageTabs.forEach((tab, idx) => {
+          const active = idx === currentPage;
+          tab.classList.toggle("is-active", active);
+          tab.setAttribute("aria-selected", String(active));
+        });
+      }
+
+      function clearDragBend(pageEl) {
+        if (!pageEl) return;
+        pageEl.classList.remove("is-dragging");
+        pageEl.style.transform = "";
+        pageEl.style.opacity = "";
+        pageEl.style.transformOrigin = "";
+        creaseShadow.style.opacity = "0";
+      }
+
+      function goToPage(targetIdx) {
+        if (isTurning) return;
+        const clamped = Math.max(0, Math.min(pages.length - 1, targetIdx));
+        if (clamped === currentPage) return;
+
+        const outgoing = pages[currentPage];
+        const incoming = pages[clamped];
+        const forward = clamped > currentPage;
+
+        clearDragBend(outgoing);
+        isTurning = true;
+        outgoing.classList.remove("is-current");
+        outgoing.classList.add(forward ? "turning-next" : "turning-prev");
+
+        setTimeout(() => {
+          outgoing.classList.remove("turning-next", "turning-prev");
+          currentPage = clamped;
+          incoming.classList.add("is-current");
+          syncBookNav();
+          isTurning = false;
+        }, 250);
+      }
+
+      pageTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const idx = Number(tab.getAttribute("data-page"));
+          if (!Number.isNaN(idx)) goToPage(idx);
+        });
+      });
+
+      // Keyboard arrow support when not typing in an input/textarea
+      document.addEventListener("keydown", (e) => {
+        const tag = document.activeElement ? document.activeElement.tagName : "";
+        if (tag === "TEXTAREA" || tag === "INPUT") return;
+        if (e.key === "ArrowRight") {
+          goToPage(currentPage + 1);
+        } else if (e.key === "ArrowLeft") {
+          goToPage(currentPage - 1);
+        }
+      });
+
+      // Real-time finger / pointer drag bending & direct outer page-edge interaction
+      let dragState = null;
+
+      function isInteractiveTarget(target) {
+        if (!target || !(target instanceof Element)) return false;
+        return Boolean(
+          target.closest("button, input, textarea, .candle, .cake-wrap, .envelope-box, .progress-track, .balloon-btn, .sticker-item")
+        );
+      }
+
+      function beginDrag(clientX, clientY, fromEdge) {
+        if (isTurning) return;
+        const activePage = pages[currentPage];
+        if (!activePage) return;
+        dragState = {
+          startX: clientX,
+          startY: clientY,
+          lastX: clientX,
+          moved: false,
+          fromEdge: Boolean(fromEdge),
+          pageEl: activePage
+        };
+      }
+
+      function updateDrag(clientX, clientY, e) {
+        if (!dragState || isTurning) return;
+        const dx = clientX - dragState.startX;
+        const dy = clientY - dragState.startY;
+        dragState.lastX = clientX;
+
+        if (!dragState.moved) {
+          if (Math.abs(dx) < 8) return;
+          if (!dragState.fromEdge && Math.abs(dy) > Math.abs(dx) * 1.15) {
+            dragState = null;
+            return;
+          }
+          dragState.moved = true;
+          dragState.pageEl.classList.remove("is-current");
+          dragState.pageEl.classList.add("is-dragging");
+        }
+
+        if (e && e.cancelable) {
+          e.preventDefault();
+        }
+
+        const shellWidth = Math.max(240, bookShell.clientWidth || 600);
+        // Dragging left turns forward (negative angle); dragging right turns backward (positive angle)
+        const canForward = dx < 0 && currentPage < pages.length - 1;
+        const canBackward = dx > 0 && currentPage > 0;
+
+        let effectiveDx = dx;
+        if (dx < 0 && !canForward) effectiveDx = dx * 0.16;
+        if (dx > 0 && !canBackward) effectiveDx = dx * 0.16;
+
+        const progress = Math.max(-0.85, Math.min(0.85, effectiveDx / (shellWidth * 0.55)));
+        const angle = progress * 26;
+        const skew = progress * -2.2;
+        const scale = 1 - Math.abs(progress) * 0.02;
+
+        dragState.pageEl.style.transformOrigin = dx < 0 ? "left center" : "right center";
+        dragState.pageEl.style.transform = `perspective(1800px) rotateY(${angle.toFixed(2)}deg) skewY(${skew.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        dragState.pageEl.style.opacity = String(Math.max(0.45, 1 - Math.abs(progress) * 0.42));
+
+        const rect = bookShell.getBoundingClientRect();
+        const relX = Math.max(16, Math.min(rect.width - 36, clientX - rect.left));
+        creaseShadow.style.left = `${relX}px`;
+        creaseShadow.style.opacity = String(Math.min(0.75, Math.abs(progress) * 0.95));
+      }
+
+      function endDrag() {
+        if (!dragState) return;
+        const { startX, lastX, moved, fromEdge, pageEl } = dragState;
+        const dx = lastX - startX;
+        dragState = null;
+
+        clearDragBend(pageEl);
+        pageEl.classList.add("is-current");
+
+        const threshold = Math.max(48, (bookShell.clientWidth || 500) * 0.16);
+        if (moved && dx < -threshold && currentPage < pages.length - 1) {
+          goToPage(currentPage + 1);
+        } else if (moved && dx > threshold && currentPage > 0) {
+          goToPage(currentPage - 1);
+        } else if (!moved && fromEdge) {
+          if (lastX > (bookShell.getBoundingClientRect().left + bookShell.clientWidth * 0.5)) {
+            goToPage(currentPage + 1);
+          } else {
+            goToPage(currentPage - 1);
+          }
+        }
+      }
+
+      // Touch events on book shell for finger bending and swiping
+      bookShell.addEventListener("touchstart", (e) => {
+        if (!e.touches || !e.touches.length) return;
+        const onEdge = Boolean(e.target && e.target.closest && e.target.closest(".edge-turn-zone"));
+        if (!onEdge && isInteractiveTarget(e.target)) return;
+        beginDrag(e.touches[0].clientX, e.touches[0].clientY, onEdge);
+      }, { passive: true });
+
+      bookShell.addEventListener("touchmove", (e) => {
+        if (!dragState || !e.touches || !e.touches.length) return;
+        updateDrag(e.touches[0].clientX, e.touches[0].clientY, e);
+      }, { passive: false });
+
+      bookShell.addEventListener("touchend", () => {
+        endDrag();
+      }, { passive: true });
+
+      bookShell.addEventListener("touchcancel", () => {
+        if (dragState) {
+          const el = dragState.pageEl;
+          dragState = null;
+          clearDragBend(el);
+          el.classList.add("is-current");
+        }
+      }, { passive: true });
+
+      // Mouse drag support on outer edges so desktop users can also pull or tap edges
+      [edgeLeft, edgeRight].forEach((edgeEl) => {
+        edgeEl.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          beginDrag(e.clientX, e.clientY, true);
+        });
+        edgeEl.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            if (edgeEl === edgeRight) goToPage(currentPage + 1);
+            else goToPage(currentPage - 1);
+          }
+        });
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!dragState || !dragState.fromEdge) return;
+        updateDrag(e.clientX, e.clientY, e);
+      });
+
+      window.addEventListener("mouseup", () => {
+        if (dragState && dragState.fromEdge) {
+          endDrag();
+        }
+      });
+
+      // Burst confetti and sparkles
+      function spawnConfetti() {
+        const colors = ["#d98a78", "#6b7f6e", "#e8be6a", "#c9969b", "#90b4c4"];
+        const cx = window.innerWidth * 0.5;
+        const cy = window.innerHeight * 0.45;
+        for (let i = 0; i < 22; i++) {
+          const bit = document.createElement("span");
+          bit.className = "confetti-bit";
+          const angle = (Math.PI * 2 * i) / 22 + (Math.random() - 0.5) * 0.25;
+          const dist = 70 + Math.random() * 140;
+          bit.style.left = `${cx}px`;
+          bit.style.top = `${cy}px`;
+          bit.style.background = colors[i % colors.length];
+          bit.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
+          bit.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
+          fxLayer.appendChild(bit);
+          setTimeout(() => bit.remove(), 1050);
+        }
+      }
+
+      // Spawn floating stars and hearts
+      function spawnStarsAndHearts() {
+        const symbols = ["✦", "♡", "✧", "♥", "✦"];
+        const colors = ["#d98a78", "#6b7f6e", "#e8be6a", "#c96a56"];
+        for (let i = 0; i < 14; i++) {
+          const glyph = document.createElement("span");
+          glyph.className = "float-glyph";
+          glyph.textContent = symbols[i % symbols.length];
+          glyph.style.left = `${8 + Math.random() * 84}vw`;
+          glyph.style.color = colors[i % colors.length];
+          glyph.style.animationDelay = `${i * 0.08}s`;
+          fxLayer.appendChild(glyph);
+          setTimeout(() => glyph.remove(), 2900);
+        }
+      }
+
+      // Candlelight glow toggle
+      function syncVibeBtn() {
+        const isDark = document.body.classList.contains("candlelight");
+        vibeToggle.setAttribute("aria-pressed", String(isDark));
+        vibeToggle.classList.toggle("is-on", isDark);
+        vibeToggle.querySelector("span").textContent = isDark ? "candlelight: on" : "candlelight glow";
+      }
+
+      vibeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("candlelight");
+        syncVibeBtn();
+      });
+
+      // 5-candle cake logic
+      function allLit() {
+        return candles.every((c) => !c.classList.contains("is-out"));
+      }
+
+      function allOut() {
+        return candles.every((c) => c.classList.contains("is-out"));
+      }
+
+      function syncCandleUi() {
+        if (allOut()) {
+          toggleCandlesBtn.textContent = "relight candles";
+          wishStatus.textContent = "candles blown out! may your birthday wish come true.";
+        } else if (allLit()) {
+          toggleCandlesBtn.textContent = "blow out candles";
+          wishStatus.textContent = "all 5 candles are lit and glowing.";
+        } else {
+          const litCount = candles.filter((c) => !c.classList.contains("is-out")).length;
+          toggleCandlesBtn.textContent = "blow out remaining";
+          wishStatus.textContent = `${litCount} of 5 candles still glowing.`;
+        }
+      }
+
+      function blowOutCandles() {
+        candles.forEach((c) => c.classList.add("is-out"));
+        syncCandleUi();
+        spawnConfetti();
+        spawnStarsAndHearts();
+      }
+
+      function relightCandles() {
+        candles.forEach((c) => c.classList.remove("is-out"));
+        syncCandleUi();
+        spawnConfetti();
+      }
+
+      candles.forEach((candle) => {
+        candle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          candle.classList.toggle("is-out");
+          syncCandleUi();
+          if (allOut()) {
+            spawnConfetti();
+            spawnStarsAndHearts();
+          }
+        });
+      });
+
+      cakeWrap.addEventListener("click", () => {
+        if (allOut()) relightCandles();
+        else blowOutCandles();
+      });
+
+      toggleCandlesBtn.addEventListener("click", () => {
+        if (allOut()) relightCandles();
+        else blowOutCandles();
+      });
+
+      relightCandlesBtn.addEventListener("click", relightCandles);
+
+      // In-page audio player (local audio file + Web Audio API music-box fallback)
+      const FALLBACK_SECONDS = 48;
+      const melodyFreqs = [293.66, 369.99, 440.0, 392.0, 329.63, 293.66, 246.94, 329.63];
+      let hasUploadedFile = false;
+      let usingFallback = true;
+      let isPlaying = false;
+      let fallbackTime = 0;
+      let stepIdx = 0;
+      let timerId = null;
+      let audioCtx = null;
+      let gainNode = null;
+
+      function formatSec(sec) {
+        if (!Number.isFinite(sec) || sec < 0) return "0:00";
+        const total = Math.floor(sec);
+        const mins = Math.floor(total / 60);
+        const secs = total % 60;
+        return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+      }
+
+      function syncAudioUi() {
+        const cur = usingFallback ? fallbackTime : (audioEl.currentTime || 0);
+        const dur = usingFallback ? FALLBACK_SECONDS : (audioEl.duration || FALLBACK_SECONDS);
+        const pct = dur > 0 ? Math.min(100, (cur / dur) * 100) : 0;
+        progressFill.style.width = `${pct}%`;
+        timeReadout.textContent = `${formatSec(cur)} / ${formatSec(dur)}`;
+        playPauseBtn.textContent = isPlaying ? "pause" : "play";
+        headerPlayBtn.classList.toggle("is-on", isPlaying);
+        headerPlayBtn.setAttribute("aria-pressed", String(isPlaying));
+        headerPlayLabel.textContent = isPlaying ? `playing: ${audioTitle.textContent}` : audioTitle.textContent;
+      }
+
+      function ensureCtx() {
+        try {
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return false;
+            audioCtx = new Ctx();
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = audioEl.muted ? 0 : 0.25;
+            gainNode.connect(audioCtx.destination);
+          }
+          if (audioCtx.state === "suspended") {
+            audioCtx.resume().catch(() => {});
+          }
+          return true;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function playChime() {
+        if (!audioCtx || !gainNode || !isPlaying) return;
+        try {
+          const now = audioCtx.currentTime;
+          const freq = melodyFreqs[stepIdx % melodyFreqs.length];
+          stepIdx++;
+
+          const osc = audioCtx.createOscillator();
+          const env = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now);
+          env.gain.setValueAtTime(0.0001, now);
+          env.gain.exponentialRampToValueAtTime(0.28, now + 0.04);
+          env.gain.exponentialRampToValueAtTime(0.0001, now + 0.92);
+          osc.connect(env);
+          env.connect(gainNode);
+          osc.start(now);
+          osc.stop(now + 0.96);
+        } catch (err) {
+          // Ignore timing issues on restricted devices
+        }
+      }
+
+      function stopFallbackLoop() {
+        clearInterval(timerId);
+        timerId = null;
+      }
+
+      function startFallbackLoop() {
+        stopFallbackLoop();
+        usingFallback = true;
+        isPlaying = true;
+        const ok = ensureCtx();
+        if (ok) playChime();
+        timerId = setInterval(() => {
+          if (!isPlaying) return;
+          fallbackTime = (fallbackTime + 0.65) % FALLBACK_SECONDS;
+          if (ok) playChime();
+          syncAudioUi();
+        }, 650);
+        audioSub.textContent = ok
+          ? "playing built-in music-box fallback inside the page"
+          : "playing fallback timer (upload an audio file for custom sound)";
+        syncAudioUi();
+      }
+
+      function togglePlayback() {
+        if (hasUploadedFile && audioEl.src) {
+          usingFallback = false;
+          if (audioEl.paused) {
+            audioEl.play().then(() => {
+              isPlaying = true;
+              audioSub.textContent = "playing your uploaded audio file in-page";
+              syncAudioUi();
+            }).catch(() => {
+              startFallbackLoop();
+            });
+          } else {
+            audioEl.pause();
+            isPlaying = false;
+            audioSub.textContent = "paused uploaded audio file";
+            syncAudioUi();
+          }
+          return;
+        }
+
+        if (isPlaying) {
+          stopFallbackLoop();
+          isPlaying = false;
+          audioSub.textContent = "paused music-box fallback";
+          syncAudioUi();
+        } else {
+          startFallbackLoop();
+        }
+      }
+
+      playPauseBtn.addEventListener("click", togglePlayback);
+      headerPlayBtn.addEventListener("click", togglePlayback);
+
+      muteBtn.addEventListener("click", () => {
+        const nextMuted = !audioEl.muted;
+        audioEl.muted = nextMuted;
+        if (gainNode) {
+          gainNode.gain.value = nextMuted ? 0 : 0.25;
+        }
+        muteBtn.setAttribute("aria-pressed", String(nextMuted));
+        muteBtn.textContent = nextMuted ? "unmute" : "mute";
+      });
+
+      progressTrack.addEventListener("click", (e) => {
+        const rect = progressTrack.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (usingFallback) {
+          fallbackTime = ratio * FALLBACK_SECONDS;
+          syncAudioUi();
+        } else if (audioEl.duration) {
+          audioEl.currentTime = ratio * audioEl.duration;
+          syncAudioUi();
+        }
+      });
+
+      uploadAudioBtn.addEventListener("click", () => audioFileInput.click());
+
+      audioFileInput.addEventListener("change", () => {
+        const file = audioFileInput.files && audioFileInput.files[0];
+        if (!file) return;
+        stopFallbackLoop();
+        hasUploadedFile = true;
+        usingFallback = false;
+        if (audioEl.src && audioEl.src.startsWith("blob:")) {
+          URL.revokeObjectURL(audioEl.src);
+        }
+        audioEl.src = URL.createObjectURL(file);
+        audioTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+        audioSub.textContent = "loading chosen audio file...";
+        audioEl.play().then(() => {
+          isPlaying = true;
+          audioSub.textContent = "playing chosen audio file inside the page";
+          syncAudioUi();
+        }).catch(() => {
+          isPlaying = false;
+          audioSub.textContent = "file loaded. tap play to start.";
+          syncAudioUi();
+        });
+      });
+
+      audioEl.addEventListener("timeupdate", () => {
+        if (!usingFallback) syncAudioUi();
+      });
+      audioEl.addEventListener("loadedmetadata", () => {
+        if (!usingFallback) syncAudioUi();
+      });
+      audioEl.addEventListener("ended", () => {
+        isPlaying = false;
+        syncAudioUi();
+      });
+
+      // Interactive sticker tray
+      const stickerNotes = [
+        "sending sweet birthday wishes to ayaan.",
+        "may good things find you easily this year.",
+        "here is to warmth, laughter, and bright moments."
+      ];
+      let stickerBalloonPtr = 0;
+
+      stickerSparkles.addEventListener("click", () => {
+        spawnStarsAndHearts();
+        spawnConfetti();
+        stickerMsg.textContent = "floating stars and hearts spawned across the page.";
+      });
+
+      stickerBalloons.addEventListener("click", () => {
+        const target = balloonBtns.find((b) => !b.classList.contains("is-popped")) || balloonBtns[0];
+        if (target) target.classList.add("is-popped");
+        const msg = stickerNotes[stickerBalloonPtr % stickerNotes.length];
+        stickerBalloonPtr++;
+        balloonMsg.textContent = msg;
+        spawnConfetti();
+        stickerMsg.textContent = `balloon popped: ${msg}`;
+      });
+
+      stickerHat.addEventListener("click", () => {
+        const active = document.body.classList.toggle("party-mode");
+        stickerHat.classList.toggle("is-on", active);
+        stickerHat.setAttribute("aria-pressed", String(active));
+        spawnConfetti();
+        stickerMsg.textContent = active
+          ? "party hat mode turned on with celebratory banner and confetti."
+          : "party hat mode turned off.";
+      });
+
+      stickerCd.addEventListener("click", () => {
+        stickerCd.classList.toggle("is-on", !isPlaying);
+        togglePlayback();
+        stickerMsg.textContent = isPlaying
+          ? "playing birds of a feather audio inside the page."
+          : "paused audio playback.";
+      });
+
+      stickerCake.addEventListener("click", () => {
+        document.body.classList.add("candlelight");
+        syncVibeBtn();
+        relightCandles();
+        spawnStarsAndHearts();
+        stickerMsg.textContent = "candles lit and warm candlelight glow turned on.";
+      });
+
+      // Envelope & letter reveal
+      function setLetter(open) {
+        letterPanel.classList.toggle("is-open", open);
+        envelopeToggle.setAttribute("aria-expanded", String(open));
+        openLetterLabel.textContent = open ? "close letter" : "open letter";
+        if (open) {
+          letterPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }
+
+      envelopeToggle.addEventListener("click", () => {
+        setLetter(!letterPanel.classList.contains("is-open"));
+      });
+
+      envelopeToggle.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setLetter(!letterPanel.classList.contains("is-open"));
+        }
+      });
+
+      // Balloons and cycling note cards
+      balloonBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.classList.add("is-popped");
+          balloonMsg.textContent = btn.getAttribute("data-balloon") || "";
+          spawnConfetti();
+        });
+      });
+
+      const birthdayCards = [
+        {
+          label: "birthday note 1 of 4",
+          text: "wishing you calm mornings, big laughs, and days that feel effortless."
+        },
+        {
+          label: "birthday note 2 of 4",
+          text: "may every step ahead bring peace, good health, and genuine joy."
+        },
+        {
+          label: "birthday note 3 of 4",
+          text: "here is to small victories, warm company, and moments worth keeping."
+        },
+        {
+          label: "birthday note 4 of 4",
+          text: "happy birthday ayaan, from nandu with best wishes always."
+        }
+      ];
+      let cardIndex = 0;
+
+      cycleNoteBtn.addEventListener("click", () => {
+        cardIndex = (cardIndex + 1) % birthdayCards.length;
+        noteLabel.textContent = birthdayCards[cardIndex].label;
+        noteText.textContent = birthdayCards[cardIndex].text;
+      });
+    })();
+  </script>
+</body>
+</html>
